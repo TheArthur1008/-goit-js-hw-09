@@ -34,20 +34,20 @@ buttonStartTimer.addEventListener('click', () => {
 
   start() {
     this.intervalId = setInterval(() => {
-      const diff = this.timerDeadline - Date.now();
+      const ms = this.timerDeadline - Date.now();
 
-      if (diff <= 0) {
+      if (ms <= 0) {
         this.stop();
 
         return;
       }
 
-      const { days, hours, minutes, seconds } = this.getTimeComponents(diff);
+      const { days, hours, minutes, seconds } = this.convertMs(ms);
 
-      this.rootSelector.querySelector('.js-timer__days').textContent = this.pad(days);
-      this.rootSelector.querySelector('.js-timer__hours').textContent = this.pad(hours);
-      this.rootSelector.querySelector('.js-timer__minutes').textContent = this.pad(minutes);
-      this.rootSelector.querySelector('.js-timer__seconds').textContent = this.pad(seconds);
+      this.rootSelector.querySelector('.js-timer__days').textContent = this.addLeadingZero(days);
+      this.rootSelector.querySelector('.js-timer__hours').textContent = this.addLeadingZero(hours);
+      this.rootSelector.querySelector('.js-timer__minutes').textContent = this.addLeadingZero(minutes);
+      this.rootSelector.querySelector('.js-timer__seconds').textContent = this.addLeadingZero(seconds);
 
     }, 1000);
   },
@@ -56,21 +56,21 @@ buttonStartTimer.addEventListener('click', () => {
     clearInterval(this.intervalId);
   },
 
-  getTimeComponents(diff) {
-    const days = Math.floor(diff / 1000 / 60 / 60 / 24);
-    const hours = Math.floor(diff / 1000 / 60 / 60) % 24;
-    const minutes = Math.floor(diff / 1000 / 60) % 60;
-    const seconds = Math.floor(diff / 1000) % 60;
+convertMs(ms) {
+  const second = 1000;
+  const minute = second * 60;
+  const hour = minute * 60;
+  const day = hour * 24;
 
-    return {
-      days,
-      hours,
-      minutes,
-      seconds,
-    };
-  },
+  const days = Math.floor(ms / day);
+  const hours = Math.floor((ms % day) / hour);
+  const minutes = Math.floor(((ms % day) % hour) / minute);
+  const seconds = Math.floor((((ms % day) % hour) % minute) / second);
 
-  pad(value) {
+  return { days, hours, minutes, seconds };
+},
+
+  addLeadingZero(value) {
     return String(value).padStart(2, 0);
   },
 

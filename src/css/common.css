@@ -17,6 +17,11 @@ img {
   max-width: 100%;
 }
 
+button:disabled {
+  color: red;
+  box-shadow: none;
+}
+
 .button {
   padding: 6px 22px;
 
@@ -33,27 +38,33 @@ img {
   text-align: center;
   border: 0;
   cursor: pointer;
+  height: 50px;
 }
 
 .button:hover,
 .button:focus {
+  /* color: #212121; */
   box-shadow: 1px 3px 1px rgba(177, 174, 174, 0.1), 0px 1px 2px rgba(217, 213, 213, 0.08),
-  0px 2px 2px rgba(107, 105, 105, 0.12);
-    
+  0px 2px 2px rgba(107, 105, 105, 0.12);   
+}
+
+.field {
+  display: flex;
 }
 
 .timer, .timer-form {
   display: flex;
   gap: 10px;
   justify-content: center;
+  align-items: flex-end;
   margin-bottom: 20px;
-  font-size: 50;
+  font-size: xx-large;
 }
 
 .input {
   font-size: large;
   text-align: center;
-  width: 400px;
+  width: 250px;
     height: 50px;
     padding: 15px 16px;
     color: rgba(96, 93, 93, 0.5);
@@ -67,7 +78,10 @@ img {
 
 
 .label, .value {
-  
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+
 background-color: #666666;
   -webkit-background-clip: text;
   -moz-background-clip: text;
@@ -75,4 +89,8 @@ background-color: #666666;
   color: transparent;
   text-shadow: rgba(96, 93, 93, 0.5) 0px 3px 3px;
 
+}
+
+.label {
+  
 }
